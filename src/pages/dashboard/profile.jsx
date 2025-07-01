@@ -1,17 +1,6 @@
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  CardFooter,
-  Avatar,
-  Typography,
-  Tabs,
-  TabsHeader,
-  Tab,
-  Switch,
-  Tooltip,
-  Button,
-} from "@material-tailwind/react";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   HomeIcon,
   ChatBubbleLeftEllipsisIcon,
@@ -25,73 +14,67 @@ import { platformSettingsData, conversationsData, projectsData } from "@/data";
 export function Profile() {
   return (
     <>
-      <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url('/img/background-image.png')] bg-cover	bg-center">
+      <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url('/img/background-image.png')] bg-cover bg-center">
         <div className="absolute inset-0 h-full w-full bg-gray-900/75" />
       </div>
-      <Card className="mx-3 -mt-16 mb-6 lg:mx-4 border border-blue-gray-100">
-        <CardBody className="p-4">
+      <Card className="mx-3 -mt-16 mb-6 lg:mx-4 border border-gray-100">
+        <CardContent className="p-4">
           <div className="mb-10 flex items-center justify-between flex-wrap gap-6">
             <div className="flex items-center gap-6">
-              <Avatar
-                src="/img/bruce-mars.jpeg"
-                alt="bruce-mars"
-                size="xl"
-                variant="rounded"
-                className="rounded-lg shadow-lg shadow-blue-gray-500/40"
-              />
+              <Avatar className="relative h-[74px] w-[74px] border-2 border-white">
+                <AvatarImage src="/img/bruce-mars.jpeg" alt="bruce-mars" />
+                <AvatarFallback>BM</AvatarFallback>
+              </Avatar>
               <div>
-                <Typography variant="h5" color="blue-gray" className="mb-1">
-                  Richard Davis
-                </Typography>
-                <Typography
-                  variant="small"
-                  className="font-normal text-blue-gray-600"
-                >
-                  CEO / Co-Founder
-                </Typography>
+                <h4 className="text-xl font-semibold text-gray-800">Richard Davis</h4>
+                <p className="text-gray-600">CEO / Co-Founder</p>
               </div>
             </div>
             <div className="w-96">
-              <Tabs value="app">
-                <TabsHeader>
-                  <Tab value="app">
-                    <HomeIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" className="flex items-center gap-2">
+                  <Link className="font-normal" to="#pablo">
+                    <HomeIcon className="h-4 w-4" />
                     App
-                  </Tab>
-                  <Tab value="message">
-                    <ChatBubbleLeftEllipsisIcon className="-mt-0.5 mr-2 inline-block h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button variant="outline" size="sm" className="flex items-center gap-2">
+                  <Link className="font-normal" to="#pablo">
+                    <ChatBubbleLeftEllipsisIcon className="h-4 w-4" />
                     Message
-                  </Tab>
-                  <Tab value="settings">
-                    <Cog6ToothIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button variant="outline" size="sm" className="flex items-center gap-2">
+                  <Link className="font-normal" to="#pablo">
+                    <Cog6ToothIcon className="h-4 w-4" />
                     Settings
-                  </Tab>
-                </TabsHeader>
-              </Tabs>
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
           <div className="gird-cols-1 mb-12 grid gap-12 px-4 lg:grid-cols-2 xl:grid-cols-3">
             <div>
-              <Typography variant="h6" color="blue-gray" className="mb-3">
-                Platform Settings
-              </Typography>
+              <h6 className="mb-3 text-lg font-semibold text-gray-800">Platform Settings</h6>
               <div className="flex flex-col gap-12">
                 {platformSettingsData.map(({ title, options }) => (
                   <div key={title}>
-                    <Typography className="mb-4 block text-xs font-semibold uppercase text-blue-gray-500">
+                    <h6 className="mb-2 block antialiased text-sm font-medium text-gray-800">
                       {title}
-                    </Typography>
-                    <div className="flex flex-col gap-6">
+                    </h6>
+                    <div className="flex flex-col gap-2">
                       {options.map(({ checked, label }) => (
-                        <Switch
-                          key={label}
-                          id={label}
-                          label={label}
-                          defaultChecked={checked}
-                          labelProps={{
-                            className: "text-sm font-normal text-blue-gray-500",
-                          }}
-                        />
+                        <div key={label} className="flex items-center">
+                          <input
+                            id={label}
+                            type="checkbox"
+                            defaultChecked={checked}
+                            className="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                          />
+                          <label htmlFor={label} className="ml-2 text-sm text-gray-800">
+                            {label}
+                          </label>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -115,104 +98,71 @@ export function Profile() {
                 ),
               }}
               action={
-                <Tooltip content="Edit Profile">
-                  <PencilIcon className="h-4 w-4 cursor-pointer text-blue-gray-500" />
-                </Tooltip>
+                <Button variant="ghost" size="sm" className="flex items-center gap-2">
+                  <PencilIcon className="h-4 w-4" />
+                  Edit
+                </Button>
               }
             />
             <div>
-              <Typography variant="h6" color="blue-gray" className="mb-3">
-                Platform Settings
-              </Typography>
-              <ul className="flex flex-col gap-6">
+              <h6 className="mb-3 text-lg font-semibold text-gray-800">Conversations</h6>
+              <div className="flex flex-col gap-6">
                 {conversationsData.map((props) => (
-                  <MessageCard
-                    key={props.name}
-                    {...props}
-                    action={
-                      <Button variant="text" size="sm">
-                        reply
-                      </Button>
-                    }
-                  />
+                  <MessageCard key={props.name} {...props} />
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
           <div className="px-4 pb-4">
-            <Typography variant="h6" color="blue-gray" className="mb-2">
-              Projects
-            </Typography>
-            <Typography
-              variant="small"
-              className="font-normal text-blue-gray-500"
-            >
-              Architects design houses
-            </Typography>
-            <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-4">
-              {projectsData.map(
-                ({ img, title, description, tag, route, members }) => (
-                  <Card key={title} color="transparent" shadow={false}>
-                    <CardHeader
-                      floated={false}
-                      color="gray"
-                      className="mx-0 mt-0 mb-4 h-64 xl:h-40"
-                    >
+            <h6 className="mb-6 text-lg font-semibold text-gray-800">Projects</h6>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+              {projectsData.map(({ img, title, description, tag, route, members }) => (
+                <Card key={title} className="border border-gray-100">
+                  <CardHeader className="p-0">
+                    <Link to={route}>
                       <img
                         src={img}
                         alt={title}
-                        className="h-full w-full object-cover"
+                        className="h-40 w-full rounded-lg object-cover"
                       />
-                    </CardHeader>
-                    <CardBody className="py-0 px-1">
-                      <Typography
-                        variant="small"
-                        className="font-normal text-blue-gray-500"
-                      >
-                        {tag}
-                      </Typography>
-                      <Typography
-                        variant="h5"
-                        color="blue-gray"
-                        className="mt-1 mb-2"
-                      >
+                    </Link>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <span className="inline-block bg-blue-500 text-white px-2 py-1 text-xs rounded mb-4">
+                      {tag}
+                    </span>
+                    <Link to={route}>
+                      <h5 className="mb-2 text-lg font-semibold text-gray-800 hover:text-gray-600">
                         {title}
-                      </Typography>
-                      <Typography
-                        variant="small"
-                        className="font-normal text-blue-gray-500"
-                      >
-                        {description}
-                      </Typography>
-                    </CardBody>
-                    <CardFooter className="mt-6 flex items-center justify-between py-0 px-1">
-                      <Link to={route}>
-                        <Button variant="outlined" size="sm">
-                          view project
-                        </Button>
-                      </Link>
-                      <div>
+                      </h5>
+                    </Link>
+                    <p className="mb-6 font-normal text-gray-600">
+                      {description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <Button variant="outline" size="sm">
+                        View Project
+                      </Button>
+                      <div className="flex items-center">
                         {members.map(({ img, name }, key) => (
-                          <Tooltip key={name} content={name}>
-                            <Avatar
-                              src={img}
-                              alt={name}
-                              size="xs"
-                              variant="circular"
-                              className={`cursor-pointer border-2 border-white ${
-                                key === 0 ? "" : "-ml-2.5"
-                              }`}
-                            />
-                          </Tooltip>
+                          <Avatar
+                            key={name}
+                            className={`h-6 w-6 cursor-pointer border-2 border-white ${
+                              key === 0 ? "" : "-ml-2.5"
+                            }`}
+                          >
+                            <AvatarImage src={img} alt={name} />
+                            <AvatarFallback>{name.charAt(0)}</AvatarFallback>
+                          </Avatar>
                         ))}
                       </div>
-                    </CardFooter>
-                  </Card>
-                )
-              )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
-        </CardBody>
+        </CardContent>
       </Card>
     </>
   );

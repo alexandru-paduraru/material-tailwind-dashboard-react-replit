@@ -1,13 +1,7 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Typography,
-  Avatar,
-  Chip,
-  Tooltip,
-  Progress,
-} from "@material-tailwind/react";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { authorsTableData, projectsTableData } from "@/data";
 
@@ -15,12 +9,12 @@ export function Tables() {
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
       <Card>
-        <CardHeader variant="gradient" color="gray" className="mb-8 p-6">
-          <Typography variant="h6" color="white">
+        <CardHeader className="bg-gray-800 text-white mb-8 p-6">
+          <h6 className="text-lg font-semibold">
             Authors Table
-          </Typography>
+          </h6>
         </CardHeader>
-        <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+        <CardContent className="overflow-x-scroll px-0 pt-0 pb-2">
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
@@ -29,12 +23,9 @@ export function Tables() {
                     key={el}
                     className="border-b border-blue-gray-50 py-3 px-5 text-left"
                   >
-                    <Typography
-                      variant="small"
-                      className="text-[11px] font-bold uppercase text-blue-gray-400"
-                    >
+                    <span className="text-[11px] font-bold uppercase text-gray-400">
                       {el}
-                    </Typography>
+                    </span>
                   </th>
                 ))}
               </tr>
@@ -52,50 +43,48 @@ export function Tables() {
                     <tr key={name}>
                       <td className={className}>
                         <div className="flex items-center gap-4">
-                          <Avatar src={img} alt={name} size="sm" variant="rounded" />
+                          <Avatar className="h-8 w-8 rounded">
+                            <AvatarImage src={img} alt={name} />
+                            <AvatarFallback>{name.charAt(0)}</AvatarFallback>
+                          </Avatar>
                           <div>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-semibold"
-                            >
+                            <p className="text-sm font-semibold text-gray-800">
                               {name}
-                            </Typography>
-                            <Typography className="text-xs font-normal text-blue-gray-500">
+                            </p>
+                            <p className="text-xs font-normal text-gray-500">
                               {email}
-                            </Typography>
+                            </p>
                           </div>
                         </div>
                       </td>
                       <td className={className}>
-                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                        <p className="text-xs font-semibold text-gray-600">
                           {job[0]}
-                        </Typography>
-                        <Typography className="text-xs font-normal text-blue-gray-500">
+                        </p>
+                        <p className="text-xs font-normal text-gray-500">
                           {job[1]}
-                        </Typography>
+                        </p>
                       </td>
                       <td className={className}>
-                        <Chip
-                          variant="gradient"
-                          color={online ? "green" : "blue-gray"}
-                          value={online ? "online" : "offline"}
-                          className="py-0.5 px-2 text-[11px] font-medium w-fit"
-                        />
+                        <Badge 
+                          variant={online ? "default" : "secondary"}
+                          className={`py-0.5 px-2 text-[11px] font-medium w-fit ${online ? "bg-green-500" : "bg-gray-500"}`}
+                        >
+                          {online ? "online" : "offline"}
+                        </Badge>
                       </td>
                       <td className={className}>
-                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                        <p className="text-xs font-semibold text-gray-600">
                           {date}
-                        </Typography>
+                        </p>
                       </td>
                       <td className={className}>
-                        <Typography
-                          as="a"
+                        <a
                           href="#"
-                          className="text-xs font-semibold text-blue-gray-600"
+                          className="text-xs font-semibold text-gray-600 hover:text-gray-800"
                         >
                           Edit
-                        </Typography>
+                        </a>
                       </td>
                     </tr>
                   );
@@ -103,15 +92,15 @@ export function Tables() {
               )}
             </tbody>
           </table>
-        </CardBody>
+        </CardContent>
       </Card>
       <Card>
-        <CardHeader variant="gradient" color="gray" className="mb-8 p-6">
-          <Typography variant="h6" color="white">
+        <CardHeader className="bg-gray-800 text-white mb-8 p-6">
+          <h6 className="text-lg font-semibold">
             Projects Table
-          </Typography>
+          </h6>
         </CardHeader>
-        <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+        <CardContent className="overflow-x-scroll px-0 pt-0 pb-2">
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
@@ -121,12 +110,9 @@ export function Tables() {
                       key={el}
                       className="border-b border-blue-gray-50 py-3 px-5 text-left"
                     >
-                      <Typography
-                        variant="small"
-                        className="text-[11px] font-bold uppercase text-blue-gray-400"
-                      >
+                      <span className="text-[11px] font-bold uppercase text-gray-400">
                         {el}
-                      </Typography>
+                      </span>
                     </th>
                   )
                 )}
@@ -145,66 +131,56 @@ export function Tables() {
                     <tr key={name}>
                       <td className={className}>
                         <div className="flex items-center gap-4">
-                          <Avatar src={img} alt={name} size="sm" />
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-bold"
-                          >
+                          <Avatar className="h-8 w-8">
+                            <AvatarImage src={img} alt={name} />
+                            <AvatarFallback>{name.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                          <p className="text-sm font-bold text-gray-800">
                             {name}
-                          </Typography>
+                          </p>
                         </div>
                       </td>
                       <td className={className}>
                         {members.map(({ img, name }, key) => (
-                          <Tooltip key={name} content={name}>
-                            <Avatar
-                              src={img}
-                              alt={name}
-                              size="xs"
-                              variant="circular"
-                              className={`cursor-pointer border-2 border-white ${
-                                key === 0 ? "" : "-ml-2.5"
-                              }`}
-                            />
-                          </Tooltip>
+                          <Avatar
+                            key={name}
+                            className={`h-6 w-6 cursor-pointer border-2 border-white ${
+                              key === 0 ? "" : "-ml-2.5"
+                            }`}
+                          >
+                            <AvatarImage src={img} alt={name} />
+                            <AvatarFallback>{name.charAt(0)}</AvatarFallback>
+                          </Avatar>
                         ))}
                       </td>
                       <td className={className}>
-                        <Typography
-                          variant="small"
-                          className="text-xs font-medium text-blue-gray-600"
-                        >
+                        <p className="text-xs font-medium text-gray-600">
                           {budget}
-                        </Typography>
+                        </p>
                       </td>
                       <td className={className}>
                         <div className="w-10/12">
-                          <Typography
-                            variant="small"
-                            className="mb-1 block text-xs font-medium text-blue-gray-600"
-                          >
+                          <p className="mb-1 block text-xs font-medium text-gray-600">
                             {completion}%
-                          </Typography>
-                          <Progress
-                            value={completion}
-                            variant="gradient"
-                            color={completion === 100 ? "green" : "gray"}
-                            className="h-1"
-                          />
+                          </p>
+                          <div className="w-full bg-gray-200 rounded-full h-1">
+                            <div 
+                              className={`h-1 rounded-full ${completion === 100 ? "bg-green-500" : "bg-gray-500"}`}
+                              style={{ width: `${completion}%` }}
+                            ></div>
+                          </div>
                         </div>
                       </td>
                       <td className={className}>
-                        <Typography
-                          as="a"
+                        <a
                           href="#"
-                          className="text-xs font-semibold text-blue-gray-600"
+                          className="text-xs font-semibold text-gray-600"
                         >
                           <EllipsisVerticalIcon
                             strokeWidth={2}
                             className="h-5 w-5 text-inherit"
                           />
-                        </Typography>
+                        </a>
                       </td>
                     </tr>
                   );
@@ -212,7 +188,7 @@ export function Tables() {
               )}
             </tbody>
           </table>
-        </CardBody>
+        </CardContent>
       </Card>
     </div>
   );
