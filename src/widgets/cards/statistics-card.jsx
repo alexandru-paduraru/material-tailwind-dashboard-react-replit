@@ -1,69 +1,40 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-} from "@material-tailwind/react";
 import PropTypes from "prop-types";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function StatisticsCard({ color, icon, title, value, footer }) {
   return (
-    <Card className="border border-blue-gray-100 shadow-sm">
-      <CardHeader
-        variant="gradient"
-        color={color}
-        floated={false}
-        shadow={false}
-        className="absolute grid h-12 w-12 place-items-center"
-      >
-        {icon}
-      </CardHeader>
-      <CardBody className="p-4 text-right">
-        <Typography variant="small" className="font-normal text-blue-gray-600">
-          {title}
-        </Typography>
-        <Typography variant="h4" color="blue-gray">
-          {value}
-        </Typography>
-      </CardBody>
-      {footer && (
-        <CardFooter className="border-t border-blue-gray-50 p-4">
-          {footer}
-        </CardFooter>
-      )}
+    <Card className="border shadow-sm">
+      <CardContent className="p-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm font-normal text-blue-gray-600 antialiased">
+              {title}
+            </p>
+            <h4 className="text-2xl font-semibold text-blue-gray-900 antialiased">
+              {value}
+            </h4>
+          </div>
+          <div className={`bg-gradient-to-tr ${color} grid h-12 w-12 place-items-center rounded-lg text-white shadow-lg shadow-blue-gray-500/40`}>
+            {icon}
+          </div>
+        </div>
+        {footer && (
+          <div className="border-t border-blue-gray-50 p-4">
+            {footer}
+          </div>
+        )}
+      </CardContent>
     </Card>
   );
 }
 
 StatisticsCard.defaultProps = {
-  color: "blue",
+  color: "from-blue-600 to-blue-400",
   footer: null,
 };
 
 StatisticsCard.propTypes = {
-  color: PropTypes.oneOf([
-    "white",
-    "blue-gray",
-    "gray",
-    "brown",
-    "deep-orange",
-    "orange",
-    "amber",
-    "yellow",
-    "lime",
-    "light-green",
-    "green",
-    "teal",
-    "cyan",
-    "light-blue",
-    "blue",
-    "indigo",
-    "deep-purple",
-    "purple",
-    "pink",
-    "red",
-  ]),
+  color: PropTypes.string,
   icon: PropTypes.node.isRequired,
   title: PropTypes.node.isRequired,
   value: PropTypes.node.isRequired,
