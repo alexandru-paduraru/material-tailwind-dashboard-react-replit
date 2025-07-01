@@ -1,12 +1,7 @@
 import React from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  Button,
-  IconButton,
-  Switch,
-  Typography,
-  Chip,
-} from "@material-tailwind/react";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@radix-ui/react-switch";
 import {
   useMaterialTailwindController,
   setOpenConfigurator,
@@ -71,26 +66,26 @@ export function Configurator() {
     >
       <div className="flex items-start justify-between px-6 pt-8 pb-6">
         <div>
-          <Typography variant="h5" color="blue-gray">
+          <h5 className="text-xl font-semibold text-blue-gray-900">
             Dashboard Configurator
-          </Typography>
-          <Typography className="font-normal text-blue-gray-600">
+          </h5>
+          <p className="font-normal text-blue-gray-600">
             See our dashboard options.
-          </Typography>
+          </p>
         </div>
-        <IconButton
-          variant="text"
-          color="blue-gray"
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={() => setOpenConfigurator(dispatch, false)}
         >
           <XMarkIcon strokeWidth={2.5} className="h-5 w-5" />
-        </IconButton>
+        </Button>
       </div>
       <div className="py-4 px-6">
         <div className="mb-12">
-          <Typography variant="h6" color="blue-gray">
+          <h6 className="text-lg font-semibold text-blue-gray-900">
             Sidenav Colors
-          </Typography>
+          </h6>
           <div className="mt-3 flex items-center gap-2">
             {Object.keys(sidenavColors).map((color) => (
               <span
@@ -106,27 +101,27 @@ export function Configurator() {
           </div>
         </div>
         <div className="mb-12">
-          <Typography variant="h6" color="blue-gray">
+          <h6 className="text-lg font-semibold text-blue-gray-900">
             Sidenav Types
-          </Typography>
-          <Typography variant="small" color="gray">
+          </h6>
+          <p className="text-sm text-gray-600">
             Choose between 3 different sidenav types.
-          </Typography>
+          </p>
           <div className="mt-3 flex items-center gap-2">
             <Button
-              variant={sidenavType === "dark" ? "gradient" : "outlined"}
+              variant={sidenavType === "dark" ? "default" : "outline"}
               onClick={() => setSidenavType(dispatch, "dark")}
             >
               Dark
             </Button>
             <Button
-              variant={sidenavType === "transparent" ? "gradient" : "outlined"}
+              variant={sidenavType === "transparent" ? "default" : "outline"}
               onClick={() => setSidenavType(dispatch, "transparent")}
             >
               Transparent
             </Button>
             <Button
-              variant={sidenavType === "white" ? "gradient" : "outlined"}
+              variant={sidenavType === "white" ? "default" : "outline"}
               onClick={() => setSidenavType(dispatch, "white")}
             >
               White
@@ -136,13 +131,13 @@ export function Configurator() {
         <div className="mb-12">
           <hr />
           <div className="flex items-center justify-between py-5">
-            <Typography variant="h6" color="blue-gray">
+            <h6 className="text-lg font-semibold text-blue-gray-900">
               Navbar Fixed
-            </Typography>
+            </h6>
             <Switch
               id="navbar-fixed"
-              value={fixedNavbar}
-              onChange={() => setFixedNavbar(dispatch, !fixedNavbar)}
+              checked={fixedNavbar}
+              onCheckedChange={() => setFixedNavbar(dispatch, !fixedNavbar)}
             />
           </div>
           <hr />
@@ -151,7 +146,7 @@ export function Configurator() {
               href="https://www.creative-tim.com/product/material-tailwind-dashboard-react?rel=mtdr"
               target="_black"
             >
-              <Button variant="gradient" fullWidth>
+              <Button className="w-full">
                 Free Download
               </Button>
             </a>
@@ -159,7 +154,7 @@ export function Configurator() {
               href="https://www.material-tailwind.com/docs/react/installation?rel=mtdr"
               target="_black"
             >
-              <Button variant="outlined" color="blue-gray" fullWidth>
+              <Button variant="outline" className="w-full">
                 View Documentation
               </Button>
             </a>
@@ -167,7 +162,7 @@ export function Configurator() {
               href="https://www.material-tailwind.com/blocks/react?rel=mtdr"
               target="_black"
             >
-              <Button variant="outlined" color="blue-gray" fullWidth>
+              <Button variant="outline" className="w-full">
                 Material Tailwind PRO
               </Button>
             </a>
@@ -178,24 +173,21 @@ export function Configurator() {
             target="_blank"
             rel="noreferrer"
           >
-            <Chip
-              value={`${stars} - Stars`}
-              icon={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className="mt-px ml-1.5 h-4 w-4"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              }
-              className="bg-blue-gray-900 px-4"
-            />
+            <div className="bg-blue-gray-900 text-white px-4 py-2 rounded-full text-sm flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="h-4 w-4"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              {`${stars} - Stars`}
+            </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -207,21 +199,15 @@ export function Configurator() {
           </a>
         </div>
         <div className="text-center">
-          <Typography variant="h6" color="blue-gray">
+          <h6 className="text-lg font-semibold text-blue-gray-900">
             Thank you for sharing ❤️
-          </Typography>
+          </h6>
           <div className="mt-4 flex justify-center gap-2">
-            <Button
-              variant="gradient"
-              className="flex items-center gap-2"
-            >
+            <Button className="flex items-center gap-2">
               <i className="fa-brands fa-twitter text-white" />
               Tweet
             </Button>
-            <Button
-              variant="gradient"
-              className="flex items-center gap-2"
-            >
+            <Button className="flex items-center gap-2">
               <i className="fa-brands fa-facebook text-white" />
               Share
             </Button>

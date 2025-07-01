@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Cog6ToothIcon } from "@heroicons/react/24/solid";
-import { IconButton } from "@material-tailwind/react";
+import { Button } from "@/components/ui/button";
 import {
   Sidenav,
   DashboardNavbar,
@@ -25,15 +25,13 @@ export function Dashboard() {
       <div className="p-4 xl:ml-80">
         <DashboardNavbar />
         <Configurator />
-        <IconButton
+        <Button
           size="lg"
-          color="white"
-          className="fixed bottom-8 right-8 z-40 rounded-full shadow-blue-gray-900/10"
-          ripple={false}
+          className="fixed bottom-8 right-8 z-40 rounded-full shadow-lg bg-white text-gray-800 hover:bg-gray-50 w-12 h-12 p-0"
           onClick={() => setOpenConfigurator(dispatch, true)}
         >
           <Cog6ToothIcon className="h-5 w-5" />
-        </IconButton>
+        </Button>
         <Routes>
           {routes.map(
             ({ layout, pages }) =>
